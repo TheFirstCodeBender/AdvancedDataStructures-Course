@@ -138,16 +138,19 @@ var trap = function (height) {
 */
 
 /* Step 10: Code Optimal Solution */
-
+//Input: [0,1,0,2,1,0,3,1,0,1,2]
 var trap = function (height) {
     //Initialize variables
     let totalWater = 0;
     let leftPointer = 0, rightPointer = height.length - 1;
     let maxLeft = 0, maxRight = 0;
+
     //loop throught height array until leftpointer = right pointer
     while (leftPointer < rightPointer) {
+
         // reset currentWater and height everytime we loop through
         let currentHeight = 0, currentWater = 0;
+        
         //check if either the right or the left pointer value is greater if so we use the other value for current height.
         if (height[leftPointer] < height[rightPointer]) {
             currentHeight = height[leftPointer]
@@ -186,4 +189,16 @@ var trap = function (height) {
 /* Step 11: Space time complexity of Optimization
     Space Complexity: O(1)
     Time Complexity: O(n)
+*/
+
+
+
+/* Yihua's steps 
+    1. Identify pointer with lesser value
+    2. Is this pointer value lesser than or equal to max on that side
+     if yes get water for pointer value, add to total
+     if no update max on that side
+    3. move pointer inwards
+    4. repeat for other pointer
+
 */
