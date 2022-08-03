@@ -35,10 +35,10 @@ compute how much water it can trap after raining.
 
 /* Step 3: Figure out a solution without code
      When we visually look at this problem we can see that at any one point 
-     the ammount of water that we have is determined by the difference between the lowest height between the two hights and the
+     the amount of water that we have is determined by the difference between the lowest height between the two heights and the
      height of the current index. It can be seen in this equation:
      CurrentWater = min(maxLeft,maxRight) - currentHeight
-     To get the total ammount we just sum the the total currentWater at each index.
+     To get the total amount we just sum the the total currentWater at each index.
      so to start we set the initial total, maxLeft and maxRight to 0.
 */
 
@@ -77,7 +77,7 @@ var trap = function (height) {
 
 /* Step 5: Check for Mistakes
     Mistakingly set let leftPointer, rightPointer = pointer; Which made leftPointer undefined
-    this doesn't affect both of them it only affects rightPointer...
+    this doesn't affect both of them it only affects leftPointer...
     to fix:
     let leftPointer = pointer, rightPointer = pointer;
 */
