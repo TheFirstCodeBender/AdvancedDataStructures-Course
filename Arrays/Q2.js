@@ -9,7 +9,7 @@
 */
 
 /*  
-    Step 1: Verify constraints
+   ✅ Step 1: Verify constraints
     n == height.length
     2 <= n <= 10^5
     0 <= height[i] <= 10^4
@@ -31,7 +31,7 @@
 
 
 /*  
-    Step 2: Write out some test cases
+    ✅ Step 2: Write out some test cases
     My test cases
     Input: height = [7,5,6,10,21,5,6,4] 
     Output: 36
@@ -46,7 +46,7 @@
     (blue section) the container can contain is 49.
 */
 
-/* Step 3: Figuring out a Naive solution
+/* ✅ Step 3: Figuring out a Naive solution
     How I would approach this, is by using a 2 pointer technique and start by setting a max area to be 0.
     Then I would loop over the array starting at the first pointer pointing at index of 0 and the second pointer
     always starting at the index after the first pointer. To determine the area we take the difference between the two indexes
@@ -59,7 +59,7 @@
     After checking all possible area's we return the max area since it is indeed the max area of the container.
 */
 
-/* Step 4: Write out Naive solution in code (I wrote it first😂) */
+/* ✅ Step 4: Write out Naive solution in code (I wrote it first😂) */
 
 const findMaxArea = function (height) {
     // set initial maxArea to 0 so we can change it later
@@ -90,20 +90,20 @@ const findMaxArea = function (height) {
     return maxArea
 }
 
-/* Step 5: Double check for errors 
+/* ✅ Step 5: Double check for errors 
     I forgot to switch the second pointer to subtract by the first pointer.
 */
 
-/* Step 6: Test the Naive Brute force solution against your test cases.
+/* ✅ Step 6: Test the Naive Brute force solution against your test cases.
     All of them are accepted
 */
 
-/* Step 7: Space and Time Complexity
+/* ✅ Step 7: Space and Time Complexity
     Space complexity = O(1) Constant Time
     Time complexity = O(n^2) Quadratic Time 
 */
 
-/* Step 8 and 9: Can we optimize our solution, if yes then write optimization
+/* ✅ Step 8 and 9: Can we optimize our solution, if yes then write optimization
     So to understand how to optimize this we have to look at the formula that we use to calculate the area:
     area = min(pointer1Height,pointer2Height) * (pointer2index-pointer1index)
                 (Height)                                (Length)
@@ -113,7 +113,7 @@ const findMaxArea = function (height) {
     This is called the two pointer technique.
 */
 
-/* Step 10: Optimizing our solution with code */
+/* ✅ Step 10: Optimizing our solution with code */
 
 const findMaxArea2 = function (height) {
     // set initial maxArea to 0 so we can change it later set pointers 1 and 2 to start and end respectively
@@ -138,7 +138,7 @@ const findMaxArea2 = function (height) {
     }
     return maxArea
 }
-/* Step 11: Space time complexity of Optimization
+/* ✅ Step 11: Space time complexity of Optimization
     This creates a Time Complexity of O(n).
     Space Complexity is O(1)
 */

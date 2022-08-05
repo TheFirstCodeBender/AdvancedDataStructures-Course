@@ -3,7 +3,7 @@ compute how much water it can trap after raining.
 */
 
  
-/* Step 1: Verify constraints
+/* ✅ Step 1: Verify constraints
 
     n == height.length
     1 <= n <= 2 * 104
@@ -18,7 +18,7 @@ compute how much water it can trap after raining.
     No, assume all integers are positive.
 */
 
-/* Step 2: Create Test cases
+/* ✅ Step 2: Create Test cases
     Input: [0,1,0,2,1,0,3,1,0,1,2]
     Output: 8
 
@@ -33,7 +33,7 @@ compute how much water it can trap after raining.
      
 */
 
-/* Step 3: Figure out a solution without code
+/* ✅ Step 3: Figure out a solution without code
      When we visually look at this problem we can see that at any one point 
      the ammount of water that we have is determined by the difference between the lowest height between the two hights and the
      height of the current index. It can be seen in this equation:
@@ -43,7 +43,7 @@ compute how much water it can trap after raining.
 */
 
 
-/* Step 4: Code Solution */
+/* ✅ Step 4: Code Solution */
 var trap = function (height) {
     //set initial total water to 0
     let totalWater = 0;
@@ -75,23 +75,23 @@ var trap = function (height) {
     return totalWater
 };
 
-/* Step 5: Check for Mistakes
+/* ✅ Step 5: Check for Mistakes
     Mistakingly set let leftPointer, rightPointer = pointer; Which made leftPointer undefined
     this doesn't affect both of them it only affects rightPointer...
     to fix:
     let leftPointer = pointer, rightPointer = pointer;
 */
 
-/* Step 6: Test Naive Bruteforce against test cases.
+/* ✅ Step 6: Test Naive Bruteforce against test cases.
     All steps work after checking and changing syntax.
 */
 
-/* Step 7: Space and Time Complexity
+/* ✅ Step 7: Space and Time Complexity
     Space Complexity: O(1)
     Time Complexity: O(n^2)
 */
 
-/* Step 8 and 9: Can we optimize? if yes how?
+/* ✅ Step 8 and 9: Can we optimize? if yes how?
     When trying to optimize this we need to look at how we assess if we can optimize our time by creating space:
 ------------------------------------------------------------------------------------------------------------
     var trap = function (height) {
@@ -137,7 +137,7 @@ var trap = function (height) {
     we replace the max value after that we then shift and restart the whole process again.
 */
 
-/* Step 10: Code Optimal Solution */
+/* ✅ Step 10: Code Optimal Solution */
 //Input: [0,1,0,2,1,0,3,1,0,1,2]
 var trap = function (height) {
     //Initialize variables
@@ -186,7 +186,7 @@ var trap = function (height) {
     return totalWater
 };
 
-/* Step 11: Space time complexity of Optimization
+/* ✅ Step 11: Space time complexity of Optimization
     Space Complexity: O(1)
     Time Complexity: O(n)
 */
