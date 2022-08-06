@@ -110,7 +110,7 @@ var lengthOfLongestSubstring = function (s) {
 */
 
 
-/* ⬜ Step 8 and 9: can we optimize solution? if yes then how? 
+/* ✅ Step 8 and 9: can we optimize solution? if yes then how? 
     my thoughts: was not able to intuitively comme up with solution on my own. I wanted to use Linked lists.
 
     Sliding window Technique:
@@ -130,37 +130,62 @@ var lengthOfLongestSubstring = function (s) {
     that will affect the value. After iterating through the whole string we return the length.
 */
 
-/* ⬜ Step 10: Code Optimal Solution */
-//"abcabcbb"
+/* ✅ Step 10: Code Optimal Solution */
+//My solution
 const theLongestSubstring = function (s) {
-    let window = {}
-    let length = 0
-    let pointer = -1
+   let memory = {}
+    let leftPointer = 0
     let maxLength = 0
     //loop through string
-    for (let i = 0; i < s.length; i++) {
+    for (let rightPointer = 0; rightPointer < s.length; rightPointer++) {
+        //initialize current character and whether it has been previously seen.
+        const currChar = s[rightPointer]
+        const prevSeenChar = memory[currChar]
         //if the item in window exists and the index is greater than the pointer this means that the index is in the current substring so we subtract the
         //the characters preceding it from the length and move the pointer to the index number and delete the index or we could set the index
         //to 0 in this case im going to delete it from the hash map.
-        if (window[s[i]] && window[s[i]] > pointer) {
-            length -= window[s[i]] + 1
-            pointer = window[s[i]]
-            delete window[s[i]]
-        } else {
-            //set the key to character and the value to the index if it is a previous index that has been seen but was preceding the index
-            //that we deleted we will just set the value to be the index and then we increment the length by 1.
-            window[s[i]] = i
-            length++
+        if (memory[currChar] >= leftPointer) {
+            leftPointer = prevSeenChar + 1
+            
         }
-        maxLength = Math.max(maxLength,length)
+           //set the key to character and the value to the index if it is a previous index that has been seen but was preceding the index
+            //that we deleted we will just set the value to be the index and then we increment the length by 1.
+        memory[currChar] = rightPointer
+        maxLength = Math.max(maxLength, rightPointer - leftPointer  + 1)
     }
-    return length
+    return maxLength
+}
+    
+    //Yihua's solution
+const lengthOfLongestSub = function (s) {
+    //if it's 0 or 1 we know thats the longest string so we return 0
+    if (s.length <= 1) return s.length;
+    //initialize leftPointer and longest string and hashmap of seen characters
+    const seenChars = {}
+    let left = 0, longest = 0;
+    //loop through characters of string using right pointer
+    for (let right = 0; right < s.length; right++) {
+        // set the current character to a variable and check to see if its previously seen.
+        //if it is not in the hashmap it will be undefined else it will give the index of the character
+        const currentChar = s[right];
+        const prevSeenChar = seenChars[currentChar]
+        //if it is seen it will be greater than the current left pointer because it will mean that it is in our current
+        //substring then we set the value to the index +1 so that we dont include it. if it is undefined it will return false.
+        if (prevSeenChar >= left) {
+            left = prevSeenChar + 1;
+        }
+        //set the character to the index we are at since we will always be updating the location regardless of seen or not.
+        //then we compare the longest substring to the current substring which is right index - left index + 1.
+        seenChars[currentChar] = right;
+        longest = Math.max(longest, right - left + 1);
     }
+    //return longest
+    return longest;
+}
+/* ✅ Step 11: Double check Code always! */
 
-/* ⬜ Step 11: Double check Code always! */
 
-
-/* ⬜ Step 12: Determine Space and Time Complexity 
-    Space Complexity: O()
-    Time Complexity: O()
+/* ✅ Step 12: Determine Space and Time Complexity 
+    Space Complexity: O(N)
+    Time Complexity: O(N)
 */
