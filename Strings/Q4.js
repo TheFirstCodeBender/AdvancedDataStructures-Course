@@ -168,59 +168,115 @@ const findStringMatchGood = function (S, T) {
         or where the incorrect value is.
         However when we start from the end we KNOW that they last values must equal each other because a # is a backspace and therefore 
         only affects the characters that are before it and not after it when reading the string from left to right. Next we have to
-        consider what happens when we have a #. Well we know that when we have a # that the other string MUST have one of these
-        or a combination of them:
-
-        1. Be shorter than the other string by that many #'s
-        2. Have the equivalent #'s
-        3. Have the equivalent incorrect characters
-
-        We can easily test these by testing the difference between the distance of the # when we first see it to the next incorrect
-        character. If the distance between the # and the next incorrect character is greater than 1 and we haven't seen a # tag in the
-        other array then we know they can't be equal because the # cannot "reach" the incorrect matching pair to potentially make the 
-        strings equal.
+        consider what happens when we have a #. When we look at a #
 */
 
-/* ⬜ Step 10: Code Optimal Solution */
-// ! Note to self haven't tested out whether this works or not yet but I suspect there is an incorrect logical reasoning.
-const findStringMatchOptimal = function (S, T) {
+/* ✅ Step 10: Code Optimal Solution */
+
+//My solution
+var backspaceCompare = function (S, T) {
+    //create a function that skips the pointer if it is equal to a hashtag and returns pointer
+    function skiphash(string, pointer) {
+        let hashCount = 0
+        let temppointer = pointer
+
+        while (string[pointer] === '#') {
+                // while pointer is still === '#' increase hashcount and increment 1
+                while (string[temppointer] === '#') {
+                    hashCount++
+                    temppointer--
+            }
+                //loop through and check each value before removing it
+            for (let i = 0; i < hashCount; i++) {
+            
+                //if value is equivalent to '#' break out of loop
+                   if (string[temppointer] === '#') {
+                       break
+                    //if not skip it and reduce hashcount by 1
+                   } else {
+                       temppointer--
+                       hashCount--
+                   }
+            }
+            // when hash count is 0 make temppointer = to pointer to break out of loop
+                if(hashCount === 0) {
+                    pointer = temppointer
+                }
+            
+        }
+        // return new pointer location
+        return pointer
+    }
+    // start at both ends of each respective string
     let sPointer = S.length - 1
     let tPointer = T.length - 1
-    let hashCountS = 0
-    let hashCountT = 0
-    let incorrectCount = 0
+
+    // while either pointer is greater than 0 loop through
     while (sPointer >= 0 || tPointer >= 0) {
+
+        // if either pointer value = # run it through the hash function. if it doesn't ==='#' it will never go through the while loop
+        // and it will just return
         if (S[sPointer] === '#' || T[tPointer] === '#') {
-            if (S[sPointer === '#']) {
-                hashCountS++
-                tPointer--
-                sPointer--
-            } else {
-                hashCountT++
-                tPointer--
-                sPointer--
-            }
-        }
-        else if (S[sPointer] !== T[tPointer]) {
-            if (hashCountS === 0 && hashCountT === 0) {
-                return false
-            } else if (hashCountS > hashCountT) {
-                hashCountS--
-                tPointer--
-                sPointer--
-            } else {
-                hashCountT--
-                tPointer--
-                sPointer--
-            }
+            sPointer = skiphash(S, sPointer)
+            tPointer = skiphash(T, tPointer)
+        // if the pointer values are not equal then return false
+        } else if (S[sPointer] !== T[tPointer]) {
+            return false
+        //else shift pointers
         } else {
-            tPointer--
             sPointer--
+            tPointer--
         }
     }
+    // if it hasn't returned false then it must be true!
+    return true
+};
 
+// Yihua's Solution
+const backspaceCompareYi = function (s, t) {
+    let p1 = s.length - 1, p2 = t.length - 1;
+    while (p1 >= 0 || p2 >= 0) {
+        if (s[p1] === "#" || t[p2] === "#") {
+            if (s[p1] === "#") {
+                let backCount = 2;
+                while (backCount > 0) {
+                    p1--;
+                    backCount--;
+                    if (s[p1] === "#") {
+                        backCount = backCount +2
+                    }
+                }
+            }
+            if (t[p2] === "#") {
+                let backCount = 2;
+                while (backCount > 0) {
+                    p1--;
+                    backCount--;
+                    if (t[p2] === "#") {
+                        backCount = backCount + 2;
+                    }
+                }
+            }
+        } else {
+            if (s[p1] !== t[p2]) {
+
+            } else {
+                p1--;
+                p2--;
+            }
+        }
+    }
 }
+/* ✅ Step 11: Double check code!
 
-/* ⬜ Step 11: Determine Space and Time Complexity 
-
+    All good in the hood!
 */
+
+/* ✅ Step 12: Space and Time Complexity 
+    Space Complexity: O(1)
+    Time Complexity: O(a + b)
+*/
+
+
+//! A lot of the techniques can be used differently but how you use them is the main thing this course is teaching us!
+//! Understanding breakdown problems and work on abstract and critical thinking
